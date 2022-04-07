@@ -1,26 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stapioca <stapioca@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/07 20:21:26 by stapioca          #+#    #+#             */
+/*   Updated: 2022/04/07 20:42:29 by stapioca         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
-
-void	err_exit(int flag)
-{
-	if (flag)
-		write (2, "Error\n", 6);
-	exit (0);
-}
-/*
-int	accept_input(char *str)
-{
-	char	*line;
-
-	while (1)
-	{
-		line = get_next_line(0);
-		if (!line)
-			return (1);
-		//if (!parse_commands(line, str))
-			//return (0);
-		free (line);
-	}
-}*/
 
 int	deal_key(int key, void *param)
 {
@@ -38,58 +28,6 @@ int	deal_key(int key, void *param)
 	return (0);
 }
 
-int	count_line_map_file(char *map_file)
-{
-	int		fd;
-	char	*line;
-	int		count;
-
-	count = 0;
-	fd = open(map_file, O_RDONLY);
-	line = get_next_line(fd);
-	while (line)
-	{
-		line = get_next_line(fd);
-		count++;
-	}
-	close(fd);
-	return (count);
-}
-
-char	**map_malloc(char *map_file)
-{
-	char	**map;
-	int		count_line;
-
-	count_line = count_line_map_file(map_file);
-	map = malloc(sizeof(char *) * count_line + 1);
-	return (map);
-}
-
-char	**get_map(char *map_file)
-{
-	int		fd;
-	char	*line;
-	char	**map;
-	int		i;
-
-	i = 0;
-	map = map_malloc(map_file);
-	if (map == NULL)
-		return (NULL);
-	fd = open(map_file, O_RDONLY);
-	line = get_next_line(fd);
-	while (line)
-	{
-		map[i] = line;
-		line = get_next_line(fd);
-		i++;
-	}
-	map[i] = NULL;
-	close(fd);
-	return (map);
-}
-
 int	main(int argc, char **argv)
 {
 	void	*mlx_ptr;
@@ -99,10 +37,10 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		map = get_map(argv[1]);
-
 		char tp;
-		int i, j;
-		for (i = 0; i < 6; i++)
+		int i = 0, j;
+		//for (i = 0; i < 6; i++)
+		while (map[i])
 		{
 			for (j = 0; j < 9; j++)
 			{
@@ -110,6 +48,7 @@ int	main(int argc, char **argv)
 				printf("%c", tp);
 			}
 			printf("\n");
+			i++;
 		}
 	/*	mlx_ptr = mlx_init();
 		win_ptr = mlx_new_window(mlx_ptr, 500, 500, "so_long");

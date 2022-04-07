@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   unit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stapioca <stapioca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 20:29:26 by stapioca          #+#    #+#             */
-/*   Updated: 2022/04/07 21:20:00 by stapioca         ###   ########.fr       */
+/*   Created: 2022/04/07 20:24:41 by stapioca          #+#    #+#             */
+/*   Updated: 2022/04/07 20:24:42 by stapioca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "so_long.h"
 
-# include <unistd.h> // ???
-# include <stdio.h> // убрать !!!!!!!!!!!!!!!!
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include "mlx.h"
+void	err_exit(int flag)
+{
+	if (flag)
+		write (1, "Error\n", 6);
+	exit (0);
+}
 
-char	*get_next_line(int fd);
-void	err_exit(int flag);
-int		my_strlen(const char *str);
-int		map_strlen(char **arr);
-char	**get_map(char *map_file);
+int	my_strlen(const char *str)
+{
+	int	i;
 
-#endif
+	i = 0;
+	while (str[i] != '\0' && str[i] != '\n')
+		i++;
+	return (i);
+}
+
+int	map_strlen(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i] != NULL)
+		i++;
+	return (i);
+}
