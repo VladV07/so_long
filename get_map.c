@@ -6,7 +6,7 @@
 /*   By: stapioca <stapioca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 20:21:03 by stapioca          #+#    #+#             */
-/*   Updated: 2022/04/07 21:59:45 by stapioca         ###   ########.fr       */
+/*   Updated: 2022/04/10 21:17:26 by stapioca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,16 @@ static int	valid_char(char ch, int flag)
 	return (0);
 }
 
-static void	valid_map(char	**map)
+static void	valid_map(char	**map, t_game *game)
 {
 	int	i;
 	int	j;
-	int	ln;
-	int	ln_map;
 
 	i = 0;
 	while (map[i])
 	{
-		ln = my_strlen(map[i]);
-		ln_map = map_strlen(map);
+		game->sz_x = my_strlen(map[i]);
+		game->sz_y = map_strlen(map);
 		j = 0;
 		while (map[i][j] != '\0' && map[i][j] != '\n')
 		{
@@ -55,9 +53,9 @@ static void	valid_map(char	**map)
 				err_exit(1);
 			if (i == 0 && map[i][j] != '1')
 				err_exit(1);
-			if (map[i][0] != '1' || map[i][ln - 1] != '1')
+			if (map[i][0] != '1' || map[i][game->sz_x - 1] != '1')
 				err_exit(1);
-			if (i == (ln_map - 1) && map[i][j] != '1')
+			if (i == (game->sz_y - 1) && map[i][j] != '1')
 				err_exit(1);
 			j++;
 		}
@@ -96,7 +94,7 @@ static char	**map_malloc(char *map_file)
 	return (map);
 }
 
-char	**get_map(char *map_file)
+char	**get_map(char *map_file, t_game *game)
 {
 	int		fd;
 	char	*line;
@@ -119,7 +117,7 @@ char	**get_map(char *map_file)
 	}
 	i++;
 	map[i] = NULL;
-	valid_map(map);
+	valid_map(map, game);
 	close(fd);
 	return (map);
 }
