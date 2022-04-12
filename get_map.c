@@ -6,13 +6,13 @@
 /*   By: stapioca <stapioca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 20:21:03 by stapioca          #+#    #+#             */
-/*   Updated: 2022/04/10 21:17:26 by stapioca         ###   ########.fr       */
+/*   Updated: 2022/04/12 19:47:57 by stapioca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	valid_char(char ch, int flag)
+static int	valid_char(char ch, int flag, t_game *game)
 {
 	static int	count_e;
 	static int	count_p;
@@ -29,6 +29,7 @@ static int	valid_char(char ch, int flag)
 			count_e++;
 		if (ch == 'P')
 			count_p++;
+		game->coin_max = count_c;
 		if (count_e > 1 || count_p > 1)
 			return (0);
 		return (1);
@@ -49,7 +50,7 @@ static void	valid_map(char	**map, t_game *game)
 		j = 0;
 		while (map[i][j] != '\0' && map[i][j] != '\n')
 		{
-			if (valid_char(map[i][j], 0) == 0)
+			if (valid_char(map[i][j], 0, game) == 0)
 				err_exit(1);
 			if (i == 0 && map[i][j] != '1')
 				err_exit(1);
@@ -61,7 +62,7 @@ static void	valid_map(char	**map, t_game *game)
 		}
 		i++;
 	}
-	valid_char('a', 1);
+	valid_char('a', 1, game);
 }
 
 static int	count_line_map_file(char *map_file)

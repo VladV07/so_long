@@ -6,7 +6,7 @@
 /*   By: stapioca <stapioca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 20:29:26 by stapioca          #+#    #+#             */
-/*   Updated: 2022/04/10 21:18:15 by stapioca         ###   ########.fr       */
+/*   Updated: 2022/04/12 20:44:40 by stapioca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ typedef struct s_stract
 	int		sz_textur;
 	int		sz_x;
 	int		sz_y;
+	int		x;
+	int		y;
+	int		coin;
+	int		coin_max;
 }	t_game;
 
 char	*get_next_line(int fd);
@@ -37,5 +41,10 @@ void	err_exit(int flag);
 int		my_strlen(const char *str);
 int		map_strlen(char **arr);
 char	**get_map(char *map_file, t_game *game);
+void	render(t_game *game);
+void	do_key_w(t_game *game);
+void	do_key_s(t_game *game);
+void	do_key_d(t_game *game);
+void	do_key_a(t_game *game);
 
 #endif

@@ -4,7 +4,9 @@ HEADER 			=	so_long.h
 
 HEADER_GNL		=	gnl/get_next_line.h 
 
-SRCS			=	unit.c \
+SRCS			=	do_key.c \
+					render.c \
+					unit.c \
 					get_map.c \
 					so_long.c \
 					gnl/get_next_line.c \
